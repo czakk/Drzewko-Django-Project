@@ -1,0 +1,14 @@
+{% extends "forest/base.html" %}
+{% block title %}
+Drzewko
+{% endblock %}
+{% block content %}
+    <h1>Last created Trees</h1>
+    {% for tree in trees %}
+        <h2>Tree created by {{ tree.creator }} titled <a href="{{ tree.get_unique_id }}">{{ tree.title }}</a> </h2>
+        <p>Published {{ tree.published }} {{ tree.branches.count }} branch{{ tree.branches.count|pluralize:'es' }}</p>
+        {% empty %}
+        <p>Trees not found!k</p>
+    {% endfor %}
+    <h2><a href="{% url 'tree:create_tree' %}">Create Tree</a></h2>
+{% endblock %}

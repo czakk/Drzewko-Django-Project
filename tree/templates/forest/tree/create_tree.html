@@ -1,0 +1,14 @@
+{% extends 'forest/base.html' %}
+{% block title %}Creating Tree{% endblock %}
+{% block content %}
+    {% if new_tree %}
+        <h2>New Tree is created</h2>
+    {% else %}
+        <h2>Create new Tree</h2>
+        <form action="." method="post">
+            {{ tree_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Create"></p>
+        </form>
+    {% endif %}
+{% endblock %}
