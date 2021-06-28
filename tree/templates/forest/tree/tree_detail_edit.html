@@ -1,0 +1,22 @@
+{% extends 'forest/base.html' %}
+{% block title %}{{ tree.title }} - Edit {% endblock %}
+{% block content %}
+        {% for branch in tree.branches.all %}
+        <p style="border: 2px solid black; padding: 10px">
+         <a target="_blank" href="{{ branch.url }}">{{ branch.title }} / {{ branch.url }}</a>
+        </p>
+    {% empty %}
+        <p>Branches not found!</p>
+    {% endfor %}
+    {% if new_branch %}
+        Sucess!
+    {% else %}
+        <h2>Create new branch</h2>
+         <form action="." method="post">
+             {{ branch_form.as_p }}
+             {% csrf_token %}
+             <p><input type="submit" value="Create"></p>
+        </form>
+    {% endif %}
+    <a href="{{ tree.get_unique_id }}">Back to branch</a>
+{% endblock %}

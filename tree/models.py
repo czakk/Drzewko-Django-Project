@@ -1,9 +1,7 @@
 from django.db import models
-from django.utils import timezone
 from django.utils.html import format_html
 import uuid
 from django.urls import reverse
-
 
 # Create your models here.
 
@@ -13,7 +11,6 @@ class Tree(models.Model):
     title = models.CharField(max_length=150, default='My Branches')
     published = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=True)
-    #    unique_id = get_random_string(length=15)
     unique_id = models.UUIDField(default=uuid.uuid4, editable=True, unique_for_date='published')
 
     def get_unique_id(self):
@@ -21,7 +18,7 @@ class Tree(models.Model):
                        args=[self.title, str(self.unique_id).replace('-', '')])
 
     class Meta:
-        ordering = ('published',)
+        ordering = ('-published',)
 
     def __str__(self):
         return self.title
