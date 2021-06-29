@@ -43,6 +43,7 @@ def tree_detail_edit(request, title, unique_id):
                 new_branch = branch_form.save(commit=False)
                 new_branch.tree = tree
                 new_branch.save()
+                return redirect(f'{tree.get_unique_id()}edit/')
         else:
             branch_form = BranchForm()
         return render(request, 'forest/tree/tree_detail_edit.html',
@@ -56,7 +57,7 @@ def create_tree(request):
             new_tree = tree_form.save()
             user = get_client_ip(request)
             cache.set(new_tree.unique_id, user)
-            return redirect(new_tree.get_unique_id())
+            return redirect(new_tree.get_unique_id()+'edit/')
     else:
         tree_form = TreeForm()
     return render(request, 'forest/tree/create_tree.html', {'tree_form': tree_form})
